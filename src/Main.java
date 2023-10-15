@@ -1,10 +1,12 @@
+package hackathonSec;
+import java.security.SecureRandom;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Scanner;
-import java.io.*;
-import java.util.*;
+import java.util.Set;
 
-public class Main {
-
-    public static String printStrongNess(String input) {
+public class PsswrdGen {
+	public static String printStrongNess(String input) {
         // Checking lower alphabet in string
         int n = input.length();
         boolean hasLower = false, hasUpper = false,
@@ -24,7 +26,7 @@ public class Main {
         }
 
         // Strength of password
-        System.out.print("Strength of password:- ");
+        System.out.print("Password Strength:- ");
 
         if (hasDigit && hasLower && hasUpper && specialChar && (n >= 8)) {
             System.out.print("Strong\nPassword Saved\n");
@@ -39,8 +41,37 @@ public class Main {
 
     // Main Code
 
-    public static void main(String[] args) {
+    public static String generatePassword(int minLength) {
+        SecureRandom random = new SecureRandom();
+        StringBuilder password = new StringBuilder();
 
+        // Define the character sets for different types of characters
+        String allCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()-_=+[]{}|;:'\",.<>?";
+        String characters = " ";
+
+        // Generate the rest of the password
+        for (int i = 0; i < minLength; i++) {
+            characters = allCharacters;
+            password.append(characters.charAt(random.nextInt(characters.length())));
+        }
+
+        // Shuffle the characters to make it more unpredictable
+        return shuffleString(password.toString());
+    }
+
+    // Function to shuffle a string
+    public static String shuffleString(String input) {
+        char[] characters = input.toCharArray();
+        for (int i = 0; i < characters.length; i++) {
+            int randomIndex = (int) (Math.random() * characters.length);
+            char temp = characters[i];
+            characters[i] = characters[randomIndex];
+            characters[randomIndex] = temp;
+        }
+        return new String(characters);
+    }
+
+    public static void main(String[] args) {
         System.out.println("..:: PASSWORD STRENGTH CHECKER ::..");
         Scanner scan = new Scanner(System.in);
 
@@ -50,12 +81,21 @@ public class Main {
             String strength = printStrongNess(password);
 
             if ("Strong".equals(strength)) {
-                System.out.println("Password Strength: " + strength);
+                System.out.println("Password Strength is: " + strength);
                 break; // Exit the loop if the password is strong
             } else {
-                System.out.println("\nPassword is "+strength+". Please try again.");
+                System.out.println("\nPassword is " + strength + ". Would you like US to generate a stronger password for you? (Y/N)");
+                String response = scan.nextLine();
+                if (response.equalsIgnoreCase("Y")) {
+                    // Generate and display a strong password
+                    int minLength = 8;
+                    String generatedPassword = generatePassword(minLength);
+                    System.out.println("Generated Password: " + generatedPassword + " \nYour New Password is :" +generatedPassword);
+                    break;
+                } else {
+                    System.out.println("Please try again.");
+                }
             }
-
         }
     }
 }
