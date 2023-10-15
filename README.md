@@ -20,6 +20,4 @@ Our solution is an algorithm in Java that checks the strength of your passwords 
 - Password Strength Assessment
 - Password Generation
 - User-Friendly Interface
-=======
-# passwordGenerator
 
