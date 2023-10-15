@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-
 # Safe Pass
 
 Our solution is an algorithm in Java that checks the strength of your passwords and suggests strong ones.
