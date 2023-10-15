@@ -23,5 +23,3 @@ Our solution is an algorithm in Java that checks the strength of your passwords 
 =======
 # passwordGenerator
 
-BELL GEEK HACKATON
->>>>>>> c34cc0a621574b0dd18e92c4557974a90461f383
